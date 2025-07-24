@@ -1,43 +1,53 @@
 import React, { useState } from 'react';
-
+import axios from 'axios';
 const ChatBot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [userId] = useState('user1');
   const [isOpen, setIsOpen] = useState(false);
 
-  const sendMessage = async (userText) => {
-    const messageText = userText || input.trim();
-    if (!messageText) return;
 
-    setMessages((prev) => [...prev, { from: 'user', text: messageText }]);
+const sendMessage = async (userText) => {
+  const messageText = userText?.trim();
+  if (!messageText) return;
 
-    try {
-      const res = await fetch('http://localhost:5000/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId, message: messageText }),
-      });
+  setMessages((prev) => [...prev, { from: 'user', text: messageText }]);
 
-      const data = await res.json();
+  try {
+    const res = await axios.post('http://localhost:5000/api/chat', {
+      userId,
+      message: messageText
+    });
 
-      setMessages((prev) => [
-        ...prev,
-        { from: 'bot', text: data.message, options: data.options || [] }
-      ]);
-    } catch (error) {
-      setMessages((prev) => [
-        ...prev,
-        { from: 'bot', text: 'Server error. Please try again later.' }
-      ]);
-    }
+    const data = res.data;
 
-    setInput('');
-  };
+    setMessages((prev) => [
+      ...prev,
+      { from: 'bot', text: data.message, options: data.options }
+    ]);
+  } catch (err) {
+    setMessages((prev) => [
+      ...prev,
+      { from: 'bot', text: 'Error: ' + err.message }
+    ]);
+    console.error("Server error:", err);
+  }
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') sendMessage();
-  };
+  setInput('');
+};
+
+
+
+
+
+
+
+
+
+
+
+
+ 
 
   const handleOptionClick = (option) => {
     sendMessage(option);
@@ -55,7 +65,7 @@ const ChatBot = () => {
         <div className="chat-container">
           <div className="chat-header">
             <span>ChatBot</span>
-            <button onClick={() => setIsOpen(false)}>×</button>
+            <button onClick={() => setIsOpen(false)}>x</button>
           </div>
 
           <div className="chat-box">
@@ -81,9 +91,9 @@ const ChatBot = () => {
               placeholder="Type your email or question..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
+              
             />
-            <button onClick={() => sendMessage()}>Send</button>
+            <button onClick={() => sendMessage(input)}>Send</button>
           </div>
         </div>
       )}

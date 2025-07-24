@@ -47,6 +47,10 @@ router.post('/', async (req, res) => {
       return res.json(resetReply);
     }
 
+
+
+
+
     if (msg === "hi" || msg === "hello") {
       state.step = "login";
       const reply = {
@@ -84,7 +88,6 @@ router.post('/', async (req, res) => {
     }
 
     let botResponse = {};
-
     if (msg.includes("company") || msg.includes("about")) {
       botResponse = {
         message: "We are EstylishCart, founded in 2020, providing top-tier IT services.",
@@ -137,24 +140,24 @@ router.post('/', async (req, res) => {
       }
     }
 
-    else if (state.step === "faq") {
-      if (msg.includes("career")) {
-        botResponse = {
-          message: "Visit estylishcart.com/careers to explore job openings.",
-          options: faqOptions
-        };
-      } else if (msg.includes("location") || msg.includes("office")) {
-        botResponse = {
-          message: "Our offices are located in Delhi, Bangalore, and Pune.",
-          options: faqOptions
-        };
-      } else {
-        botResponse = {
-          message: "Please choose a valid FAQ option.",
-          options: faqOptions
-        };
-      }
-    }
+    // else if (state.step === "faq") {
+    //   if (msg.includes("career")) {
+    //     botResponse = {
+    //       message: "Visit estylishcart.com/careers to explore job openings.",
+    //       options: faqOptions
+    //     };
+    //   } else if (msg.includes("location") || msg.includes("office")) {
+    //     botResponse = {
+    //       message: "Our offices are located in Delhi, Bangalore, and Pune.",
+    //       options: faqOptions
+    //     };
+    //   } else {
+    //     botResponse = {
+    //       message: "Please choose a valid FAQ option.",
+    //       options: faqOptions
+    //     };
+    //   }
+    // }
 
     else {
       botResponse = {

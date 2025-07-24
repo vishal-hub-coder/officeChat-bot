@@ -22,24 +22,7 @@ const App = () => {
       </main>
       <ChatBot />
 
-      <style>{`
-        .app-container {
-          font-family: Arial, sans-serif;
-          padding: 20px;
-        }
-        .main-header {
-          background: #3f51b5;
-          color: white;
-          padding: 20px;
-          border-radius: 10px;
-        }
-        .main-content {
-          margin-top: 20px;
-        }
-        section {
-          margin-bottom: 20px;
-        }
-      `}</style>
+    
     </div>
   );
 };
