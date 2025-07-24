@@ -92,7 +92,7 @@ router.post('/', async (req, res) => {
       };
     } else if (msg.includes("contact")) {
       botResponse = {
-        message: "Contact us at support@estylishcart.com or call 123-456-7890.",
+        message: "Contact us at support@estylishcart.com or call 1234567890",
         options: mainOptions
       };
     } else if (msg.includes("agent") || msg.includes("support")) {
